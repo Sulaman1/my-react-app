@@ -1,0 +1,110 @@
+import React from "react";
+import BaseReportComponent from "../../components/common/BaseReportComponent";
+import PrisonerBasicInfoParams from "./components/PrisonerBasicInfoParams";
+import PrisonerTypeForm from "./components/PrisonerTypeForm";
+import PrisonerAccodomationForm from "./components/PrisonerAccodomationForm";
+import PersonalInfoForm from "./components/PersonalInfoForm";
+import ContactInfoForm from "./components/ContactInfoForm";
+import AddressForm from "./components/AddressForm";
+import PrisonerCaseForm from "./components/PrisonerCaseForm";
+import HearingForm from "./components/HearingForm";
+import { PayloadFtn } from "../reports/helper/Payload";
+
+const UnderTrialReport = () => {
+  // Define tab configuration - more limited than Master Report
+  const tabConfig = [
+    { id: "basic", label: "Basic" , icon: "fas fa-user"},
+    { id: "advanced", label: "Advanced" , icon: "fas fa-user-cog"},
+    { id: "personal", label: "Personal" , icon: "fas fa-id-card"},
+    { id: "case", label: "Case" ,icon: 'fas fa-file-alt'},
+  ];
+
+  // Special payload for UTP report
+  const defaultFormPayload = {
+    prisonerBasicInfo: {
+      prisonerTypeId: 1, // UTP type ID
+    }
+  };
+
+  // This function will render the content for each tab
+  const renderTabContent = (activeTab, formPayload, handleFormPayloadChange, setFormPayload) => {
+    switch (activeTab) {
+      case "basic":
+        return (
+          <div className="tab-content-section">
+            <PrisonerBasicInfoParams
+              setFormPayload={setFormPayload}
+              formPayload={formPayload}
+            />
+          </div>
+        );
+      case "advanced":
+        return (
+          <div className="tab-content-section">
+            <PrisonerTypeForm
+              type="utp"
+              formPayload={formPayload}
+              setFormPayload={handleFormPayloadChange}
+            />
+            <PrisonerAccodomationForm
+              type="utp"
+              formPayload={formPayload}
+              setFormPayload={handleFormPayloadChange}
+            />
+          </div>
+        );
+      case "personal":
+        return (
+          <div className="tab-content-section">
+            <PersonalInfoForm
+              type="utp"
+              formPayload={formPayload}
+              setFormPayload={handleFormPayloadChange}
+            />
+            <ContactInfoForm
+              type="utp"
+              formPayload={formPayload}
+              setFormPayload={handleFormPayloadChange}
+            />
+            <AddressForm
+              type="utp"
+              formPayload={formPayload}
+              setFormPayload={handleFormPayloadChange}
+            />
+          </div>
+        );
+      case "case":
+        return (
+          <div className="tab-content-section">
+            <PrisonerCaseForm
+              type="utp"
+              formPayload={formPayload}
+              setFormPayload={handleFormPayloadChange}
+            />
+            <HearingForm
+              type="utp"
+              formPayload={formPayload}
+              setFormPayload={handleFormPayloadChange}
+            />
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <BaseReportComponent
+      reportName="Under Trial Prisoner"
+      apiEndpoint="/services/app/Reports/MasterReport"
+      statsEndpoint="/services/app/Reports/GetMasterReportCounts"
+      excelExportEndpoint="/services/app/Reports/MasterReportExelNew"
+      defaultFormPayload={defaultFormPayload}
+      tabConfig={tabConfig}
+      renderTabContent={renderTabContent}
+      excelFileName="utp_report"
+    />
+  );
+};
+
+export default UnderTrialReport;
