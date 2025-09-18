@@ -57,11 +57,11 @@ const Login = (props) => {
       if (!zone?.toLowerCase().includes('pakistan')) {
         setTimezone(false);
       }
-      const result = await getDataTest();
-      if (result) {
-        //window.open(process.env.REACT_APP_FINGERBASEURL, '_blank');
-        window.open("https://pmis-bl:4502/", '_blank');
-      }
+      // const result = await getDataTest();
+      // if (result) {
+      //   //window.open(process.env.REACT_APP_FINGERBASEURL, '_blank');
+      //   window.open("https://pmis-bl:4502/", '_blank');
+      // }
     })();
   }, []);
 
@@ -88,6 +88,8 @@ const Login = (props) => {
     postData('http://pmis-bl:4502/api/TokenAuth/Authenticate', loginPayload, false, false)
       .then(async (result) => {
         if (result && result.success && result.result) {
+          
+          console.log("RESULT : ", result)
           result['isLoggedIn'] = true;
           result['userName'] = username;
           setLoginData(result);

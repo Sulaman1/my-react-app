@@ -3,25 +3,29 @@ import { setLoaderOn, setLoaderOff } from '../store/loader'; // Adjust the impor
 
 // export const BASEUIURL = "https://qr.sightsnsounds.pk";
 // TODO: make configuratable ports
-const BASEURL = "process.env.REACT_APP_BASE_URL";
-const FINGERBASEURL = "process.env.REACT_APP_FINGERBASEURL";
+const BASEURL = "http://pmin-bl:4502/api";
+const FINGERBASEURL = "";
 // const BASEURL = "http://localhost:44311/api";
 // export var faceBaseUrl = "https://idverify.ng/dapi/api";
 // export var facialUrl = "https://mysterious-sands-13000.herokuapp.com/";
-export var baseImageUrl = "process.env.REACT_APP_IMAGE_URL";
+export var baseImageUrl = "../assets/images/1.png";
 
-export const socketBaseUrl = "process.env.REACT_APP_SOCKET";
+export const socketBaseUrl = "4502";
 
 // get all inventory
 export const getData = (URL, data, authflag, useLoader = true) => {
   console.log("use loader in get data =", useLoader);
   return new Promise((resolve, reject) => {
-    const authKey = sessionStorage.getItem('accessToken')
-      ? 'Bearer ' + sessionStorage.getItem('accessToken')
-      : '';
-    if (useLoader) {
-      store.dispatch(setLoaderOn());
-    }
+    // const authKey = sessionStorage.getItem('accessToken')
+    //   ? 'Bearer ' + sessionStorage.getItem('accessToken')
+    //   : '';
+    const authKey = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEyOSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJhbGlpLmtoYW4iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJhbGlpLmtoYW5AdGVzdC5jb20iLCJBc3BOZXQuSWRlbnRpdHkuU2VjdXJpdHlTdGFtcCI6IkpGVDVRRVJOQ0VKM05FQ01RV1BUTDZMU0FTVUVCRzMyIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjpbIkFkbWluIiwiSW5zcGVjdG9yIEdlbmVyYWwgUHJpc29ucyJdLCJodHRwOi8vd3d3LmFzcG5ldGJvaWxlcnBsYXRlLmNvbS9pZGVudGl0eS9jbGFpbXMvdGVuYW50SWQiOiIxIiwic3ViIjoiMTI5IiwianRpIjoiMDFmYmE3OTgtMWE4Yi00OGQ3LTk5ZjEtODhlNjE4NGM2MTdjIiwiaWF0IjoxNzU4MTIwNjcyLCJuYmYiOjE3NTgxMjA2NzIsImV4cCI6MTc1ODEyNjA3MiwiaXNzIjoiUE1JU1MiLCJhdWQiOiJQTUlTUyJ9.AR8I1yHP1WxviTaGVGvCetNCZVXlvagJwzLqbrpMwIs";
+    // if (useLoader) {
+    //   store.dispatch(setLoaderOn());
+    // }
+
+    console.log("BASEURL IN REQUEST FILE 1: ", BASEURL);
+    console.log("URL IN REQUEST FILE 1: ", URL);
 
     fetch(BASEURL + URL, {
       method: 'GET',
@@ -62,9 +66,13 @@ export const getData = (URL, data, authflag, useLoader = true) => {
 // put request
 export const putData = (URL, data, authflag) => {
   return new Promise((resolve, reject) => {
-    const authKey = sessionStorage.getItem('accessToken')
-      ? 'Bearer ' + sessionStorage.getItem('accessToken')
-      : '';
+    // const authKey = sessionStorage.getItem('accessToken')
+    //   ? 'Bearer ' + sessionStorage.getItem('accessToken')
+    //   : '';
+    const authKey = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEyOSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJhbGlpLmtoYW4iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJhbGlpLmtoYW5AdGVzdC5jb20iLCJBc3BOZXQuSWRlbnRpdHkuU2VjdXJpdHlTdGFtcCI6IkpGVDVRRVJOQ0VKM05FQ01RV1BUTDZMU0FTVUVCRzMyIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjpbIkFkbWluIiwiSW5zcGVjdG9yIEdlbmVyYWwgUHJpc29ucyJdLCJodHRwOi8vd3d3LmFzcG5ldGJvaWxlcnBsYXRlLmNvbS9pZGVudGl0eS9jbGFpbXMvdGVuYW50SWQiOiIxIiwic3ViIjoiMTI5IiwianRpIjoiMDFmYmE3OTgtMWE4Yi00OGQ3LTk5ZjEtODhlNjE4NGM2MTdjIiwiaWF0IjoxNzU4MTIwNjcyLCJuYmYiOjE3NTgxMjA2NzIsImV4cCI6MTc1ODEyNjA3MiwiaXNzIjoiUE1JU1MiLCJhdWQiOiJQTUlTUyJ9.AR8I1yHP1WxviTaGVGvCetNCZVXlvagJwzLqbrpMwIs";
+
+    console.log("URL IN REQUEST FILE 2: ", URL);
+
     fetch(BASEURL + URL, {
       method: 'PUT',
       headers: {
@@ -87,14 +95,16 @@ export const putData = (URL, data, authflag) => {
 export const postData = (URL, data, useLoader = true) => {
   console.log("use loader in post data =", useLoader);
   return new Promise((resolve, reject) => {
-    const authKey = sessionStorage.getItem('accessToken')
-      ? 'Bearer ' + sessionStorage.getItem('accessToken')
-      : '';
+    // const authKey = sessionStorage.getItem('accessToken')
+    //   ? 'Bearer ' + sessionStorage.getItem('accessToken')
+    //   : '';
+    const authKey = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEyOSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJhbGlpLmtoYW4iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJhbGlpLmtoYW5AdGVzdC5jb20iLCJBc3BOZXQuSWRlbnRpdHkuU2VjdXJpdHlTdGFtcCI6IkpGVDVRRVJOQ0VKM05FQ01RV1BUTDZMU0FTVUVCRzMyIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjpbIkFkbWluIiwiSW5zcGVjdG9yIEdlbmVyYWwgUHJpc29ucyJdLCJodHRwOi8vd3d3LmFzcG5ldGJvaWxlcnBsYXRlLmNvbS9pZGVudGl0eS9jbGFpbXMvdGVuYW50SWQiOiIxIiwic3ViIjoiMTI5IiwianRpIjoiMDFmYmE3OTgtMWE4Yi00OGQ3LTk5ZjEtODhlNjE4NGM2MTdjIiwiaWF0IjoxNzU4MTIwNjcyLCJuYmYiOjE3NTgxMjA2NzIsImV4cCI6MTc1ODEyNjA3MiwiaXNzIjoiUE1JU1MiLCJhdWQiOiJQTUlTUyJ9.AR8I1yHP1WxviTaGVGvCetNCZVXlvagJwzLqbrpMwIs";
 
-    if (useLoader) {
-      store.dispatch(setLoaderOn());
-    }
+    // if (useLoader) {
+    //   store.dispatch(setLoaderOn());
+    // }
 
+    console.log("URL IN REQUEST FILE 3: ", URL);
     fetch(BASEURL + URL, {
       method: 'POST',
       headers: {
@@ -188,25 +198,25 @@ export var postFingerData = (url, data) => {
   });
 };
 
-export const getFingerData = (URL) => {
-  return new Promise((resolve, reject) => {
-    fetch(FINGERBASEURL + URL, {
-      method: 'GET',
-      headers: {
-        "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*"
-      },
-    }) // getInventory
-      .then((response) => response.json())
-      .then((data) => {
-        resolve(data);
-      })
-      .catch((error) => {
-        console.error('error in post api', error);
-        reject(error);
-      });
-  });
-};
+// export const getFingerData = (URL) => {
+//   return new Promise((resolve, reject) => {
+//     fetch(FINGERBASEURL + URL, {
+//       method: 'GET',
+//       headers: {
+//         "Content-Type": "application/json",
+//           "Access-Control-Allow-Origin": "*"
+//       },
+//     }) // getInventory
+//       .then((response) => response.json())
+//       .then((data) => {
+//         resolve(data);
+//       })
+//       .catch((error) => {
+//         console.error('error in post api', error);
+//         reject(error);
+//       });
+//   });
+// };
 
 // add items in inventory
 export const deleteData = (URL, data) => {
@@ -234,32 +244,34 @@ export const deleteData = (URL, data) => {
 };
 
 
-// get all inventory
-export const getDataTest = (URL, data, authflag) => {
-  return new Promise((resolve, reject) => {
-    const authKey = sessionStorage.getItem('accessToken')
-      ? 'Bearer ' + sessionStorage.getItem('accessToken')
-      : '';
-    fetch(FINGERBASEURL, {
-      method: 'GET',
-      headers: {
-        Authorization: authKey,
-      },
-    }) // getInventory
-      .then((response) => response)
-      .then((data) => {
-        console.log('api from get request for node server')
-        resolve(data);
-        setTimeout(() => {
-          store.dispatch(setLoaderOff());
-        }, 1000); 
-      })
-      .catch((error) => {
-        console.error('error in get node api', error);
-        reject(error);
-        setTimeout(() => {
-          store.dispatch(setLoaderOff());
-        }, 1000); 
-      });
-  });
-};
+// // get all inventory
+// export const getDataTest = (URL, data, authflag) => {
+//   return new Promise((resolve, reject) => {
+//     const authKey = sessionStorage.getItem('accessToken')
+//       ? 'Bearer ' + sessionStorage.getItem('accessToken')
+//       : '';
+//     fetch(FINGERBASEURL, {
+//       method: 'GET',
+//       headers: {
+//         Authorization: authKey,
+//       },
+//     }) // getInventory
+//       .then((response) => response)
+//       .then((data) => {
+//         console.log('api from get request for node server')
+//         resolve(data);
+//         setTimeout(() => {
+//           store.dispatch(setLoaderOff());
+//         }, 1000); 
+//       })
+//       .catch((error) => {
+//         console.error('error in get node api', error);
+//         reject(error);
+//         setTimeout(() => {
+//           store.dispatch(setLoaderOff());
+//         }, 1000); 
+//       });
+//   });
+
+
+// };
