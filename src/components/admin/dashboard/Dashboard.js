@@ -113,6 +113,16 @@ const AdminDashboard = (props) => {
   
   const fetchNewData = async (apiEndpoint) => {
     try {
+      if (typeof apiEndpoint === "string") {
+        if (!apiEndpoint.includes("pmis-bl")) {
+          // ensure we don't double up on slashes
+          const prefix = "https://pmis-bl:4502/api";
+          // remove leading slash from apiEndpoint if it exists
+          apiEndpoint = prefix + (apiEndpoint.startsWith("/") ? apiEndpoint : `/${apiEndpoint}`);
+        }
+      } else {
+        console.error("apiEndpoint is not a string");
+      }
       const response = await getData(apiEndpoint);
       if (response?.success) {
         return response.result;

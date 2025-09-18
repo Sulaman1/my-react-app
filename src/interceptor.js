@@ -3,8 +3,19 @@ const originalFetch = window.fetch;
 window.fetch = async (input, init = {}) => {
   // Keep original URL
   let url = input;
-  console.log("THE URL:", url);
-  url = "/api/TokenAuth/Authenticate";
+  console.log("FIRST URL : ", url);
+  if(url.includes("http")){
+    url = url.split("http").slice(1).join("/");
+    url = "http"+url;
+    console.log("NEW URL 1: ", url);
+  }
+  if(url.includes("process.env")){
+    url = url.split("/").slice(1).join("/");
+    url = "https://pmis-bl:4502/api/"+url;
+    console.log("NEW URL 2: ", url);    
+  }
+  console.log("THE final URL: ", url);
+  
   let modifiedInit = { ...init };
 
   // Only modify PrisonerSearch requests

@@ -79,10 +79,10 @@ const donorLogo = () => {
   //   });
   // }
   const accessValidator = () => {
-    const currentPath = location.pathname;
-    if (userMeta.access.indexOf(currentPath) === -1) {
+    //const currentPath = location.pathname;
+    //if (userMeta.access.indexOf(currentPath) === -1) {
       navigate("/admin/dashboard");
-    }
+    //}
   };
 
   const renderDashboard = () => {

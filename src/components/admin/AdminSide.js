@@ -34,11 +34,24 @@ const AdminSide = () => {
     const accessToken = sessionStorage.getItem('accessToken');
     const user = JSON.parse(sessionStorage.getItem('user'));
     const selectedRole = sessionStorage.getItem('selectedRole');
+
+    console.log("ACCESS TOKEN : ", accessToken);
+    console.log("USER : ", user);
+    console.log("selectedRole : ", selectedRole);
+
     if (!user) return;
 
-    const activeRole = user.employee.user.roles.find(
+    // --- always pick a role ---
+  // 1. If selectedRole exists, find by displayName
+  // 2. Otherwise fallback to the Admin role
+  let activeRole =
+    user.employee.user.roles.find(
       (role) => role.displayName === selectedRole
+    ) ||
+    user.employee.user.roles.find(
+      (role) => role.displayName === 'Admin'
     );
+    
     sessionStorage.setItem('activeRoleId', JSON.stringify(activeRole?.id));
     console.log(activeRole, 'activeRole');
 

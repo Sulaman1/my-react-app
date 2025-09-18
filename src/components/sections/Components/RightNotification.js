@@ -62,9 +62,25 @@ function RightNotification() {
 	}, [roleChanged, dispatch]);
 	const fetchNotifications = async () => {
 		const user = JSON.parse(sessionStorage.getItem('user'));
+
+		// --- always pick a role ---
+		// 1. If selectedRole exists, find by displayName
+		// 2. Otherwise fallback to the Admin role
 		const selectedRole = sessionStorage.getItem('selectedRole');
-		const activeRole = user.employee.user.roles.find(role => role.displayName === selectedRole);
+		
+		let activeRole =
+			user.employee.user.roles.find(
+			(role) => role.displayName === selectedRole
+			) ||
+			user.employee.user.roles.find(
+			(role) => role.displayName === 'Admin'
+			);
+
+		//const activeRole = user.employee.user.roles.find(role => role.displayName === selectedRole);
+		console.log("USER : ", user);
 		console.log(activeRole, 'activeRole');
+		
+		
 		if(activeRole?.id) {
 			const notes = await getData('/services/app/Notification/GetNotificationsByRole?roleId='+activeRole?.id, null, true, false);
 			if (notes?.result?.data?.length > 0) {

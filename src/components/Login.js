@@ -85,8 +85,9 @@ const Login = (props) => {
       password: password.trim(),
     };
 
-    postData('http://pmis-bl:4502/api/TokenAuth/Authenticate', loginPayload, false, false)
+    postData('https://pmis-bl:4502/api/TokenAuth/Authenticate', loginPayload, false, false)
       .then(async (result) => {
+        console.log("IN LOGIN POST DATA: ", result);
         if (result && result.success && result.result) {
           result['isLoggedIn'] = true;
           result['userName'] = username;
@@ -158,6 +159,7 @@ const Login = (props) => {
 
   const processLogin = async (result) => {
     try {
+      console.log("IN LOGIN PROCESS: ", result);
       await setSessionValues(result);
       navigate('/admin/dashboard'); // ✅ changed
       const lookupAction = await fetchLookupsFromAPI();
@@ -171,6 +173,7 @@ const Login = (props) => {
   };
 
   const setLocalStorageValue = (data) => {
+    console.log("IN LOGIN LOCALsTORAGE: ", data);
     const result = data?.result;
     localStorage.setItem('accessToken', result.accessToken);
     localStorage.setItem('user', JSON.stringify(result));
@@ -178,6 +181,7 @@ const Login = (props) => {
   };
 
   const setSessionValues = async (result) => {
+    console.log("IN LOGIN SESSIONTORAGE: ", data);
     const { accessToken, encryptedAccessToken } = result.result;
     sessionStorage.setItem('accessToken', accessToken);
     sessionStorage.setItem('encryptedAccessToken', encryptedAccessToken);
